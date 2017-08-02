@@ -12,7 +12,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
@@ -27,6 +26,13 @@ public class WxMpTemplateMessageGsonAdapter implements JsonSerializer<WxMpTempla
     messageJson.addProperty("template_id", message.getTemplateId());
     if (message.getUrl() != null) {
       messageJson.addProperty("url", message.getUrl());
+    }
+
+    if (message.getMiniProgram() != null) {
+      JsonObject miniProgramJson = new JsonObject();
+      miniProgramJson.addProperty("appid", message.getMiniProgram().getAppid());
+      miniProgramJson.addProperty("pagepath", message.getMiniProgram().getPagePath());
+      messageJson.add("miniprogram", miniProgramJson);
     }
 
     JsonObject data = new JsonObject();
