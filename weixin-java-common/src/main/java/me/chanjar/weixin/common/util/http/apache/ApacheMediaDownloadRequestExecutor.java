@@ -63,7 +63,12 @@ public class ApacheMediaDownloadRequestExecutor extends MediaDownloadRequestExec
       }
 
       String[] nameAndExt = fileName.split("\\.");
-      return FileUtils.createTmpFile(inputStream, nameAndExt[0], nameAndExt[1], super.tmpDirFile);
+      String baseName = nameAndExt[0];
+      String ext = "";
+      if (nameAndExt.length > 1)
+        ext = nameAndExt[1];
+
+      return FileUtils.createTmpFile(inputStream, baseName, ext, super.tmpDirFile);
 
     } finally {
       httpGet.releaseConnection();
